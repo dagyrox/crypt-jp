@@ -1,3 +1,31 @@
-<p>
-  encryption works!
-</p>
+<div class="container">
+  <h1>Encrypt / Decrypt</h1>
+  
+  <p>Hi there.  Here is a simple encrypt / decrypt app. You may provide a passphrase if you'd like, or you could let us use our default one for you.  Enjoy!</p>
+
+  <div class="form-group row">
+    <label class="col-xs-4">Select type:</label>
+    <select [(ngModel)]="actionId" class="col-xs-4 push-xs-4" (change)="setEncryptionChange()">
+      <option *ngFor="let action of actions" value="{{action.id}}">{{action.text}}</option>
+    </select>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-xs-4">Encryption Key:</label>
+    <input class="col-xs-8" [(ngModel)]="key" type="text" placeholder="Encryption key (optional)"/>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-xs-4">Term:</label>
+    <textarea class="col-xs-8" required [(ngModel)]="term" type="text" placeholder="Term to encrypt/decrypt (required)"></textarea>
+  </div>
+
+  <div class="btn-group pull-right row">
+    <button type="button" class="btn btn-secondary" (click)="actionId = (actionId == 0 ? 1 : 0); setEncryptionChange();">Switch <i class="fa fa-unlock" [ngClass]="{'fa-lock': (actionId == 0), 'fa-unlock': (actionId == 1)}"></i></button>
+    <button type="button" class="btn btn-primary" (click)="doIt();">{{buttonText}}</button>
+  </div>
+
+  <div class="form-group row">
+    <textarea class="col-xs-12" [ngModel]="result"></textarea>
+  </div>
+</div>
