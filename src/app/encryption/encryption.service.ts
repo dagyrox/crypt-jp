@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Headers, Http, RequestOptions, Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -9,25 +9,34 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class EncryptionService {
+  debugUrl = 'http://localhost:3000';
+  produrl = 'http://jpsvc.com';
+  prod = true;
 
   constructor(
     private Http: Http
   ) { }
 
   encrypt(term: string, key?: string): Observable<string>{
-    let queryString = 'term=' +  term + (key?'&key='+key:'');
+    let url = (this.prod ? this.produrl : this.debugUrl) + '/encrypt';
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({headers : headers});
+    let body = {'term': term, 'key': key};
 
-    return this.Http.get('http://jpsvc.com/encrypt?'+queryString)
-                    .map(this.extractData)
-                    .catch(this.handleError);
+    return this.Http.post(url, body, options)
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 
   decrypt(term: string, key?: string): Observable<string>{
-    let queryString = 'term=' +  term + (key?'&key='+key:'');
+    let url = (this.prod ? this.produrl : this.debugUrl) + '/decrypt';
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({headers : headers});
+    let body = {'term': term, 'key': key};
 
-    return this.Http.get('http://jpsvc.com/decrypt?'+queryString)
-                    .map(this.extractData)
-                    .catch(this.handleError);
+    return this.Http.post(url, body, options)
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 
   private extractData(res: any) {
