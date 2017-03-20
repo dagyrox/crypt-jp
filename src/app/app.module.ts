@@ -4,6 +4,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+// https://www.npmjs.com/package/angular2-clipboard
+import { ClipboardModule } from 'ngx-clipboard';
+
 import { AppComponent } from './app.component';
 import { EncryptionComponent } from './encryption/encryption.component';
 import { EncryptionService } from './encryption/encryption.service';
@@ -16,6 +19,7 @@ import { EncryptionService } from './encryption/encryption.service';
   imports: [
     AlertModule.forRoot(),
     BrowserModule,
+    ClipboardModule,
     FormsModule,
     HttpModule
   ],

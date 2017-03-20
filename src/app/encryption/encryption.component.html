@@ -1,34 +1,59 @@
-<div class="container">
-  <h1>Encrypt / Decrypt</h1>
-  
-  <p>Hi there.  Here is a simple encrypt / decrypt app. You may provide a passphrase if you'd like, or you could let us use our default one for you.  Enjoy!</p>
+<form>
+  <fieldset>
+    <legend>Encrypt / Decrypt</legend>
+    
+    <p>{{greetingMessage}}</p>
 
-  <div class="form-group row">
-    <label class="col-xs-4">Select type:</label>
-    <select [(ngModel)]="actionId" class="col-xs-4 push-xs-4" (change)="setEncryptionChange()">
-      <option *ngFor="let action of actions" value="{{action.id}}">{{action.text}}</option>
-    </select>
-  </div>
-
-  <div class="form-group row">
-    <label class="col-xs-4">Encryption Key:</label>
-    <input class="col-xs-8" [(ngModel)]="key" type="password" placeholder="Encryption key (optional)"/>
-  </div>
-
-  <div class="form-group row">
-    <label class="col-xs-4">Term:</label>
-    <textarea class="col-xs-8 height-500" required [(ngModel)]="term" type="text" placeholder="Term to encrypt/decrypt (required)"></textarea>
-  </div>
-
-  <div class="form-group row">
-    <div class="btn-group pull-right">
-      <button type="button" class="btn btn-secondary" (click)="actionId = (actionId == 0 ? 1 : 0); setEncryptionChange();">Switch <i class="fa fa-unlock" [ngClass]="{'fa-lock': (actionId == 0), 'fa-unlock': (actionId == 1)}"></i></button>
-      <button type="button" class="btn btn-primary" (click)="doIt();">{{buttonText}}</button>
+    <div class="form-group row">
+      <label class="col-md-2 control-label">Select type:</label>
+      <div class="col-md-2 push-md-8">
+        <select [(ngModel)]="actionId" class="form-control" (change)="setEncryptionChange()"  name="action">
+          <option *ngFor="let action of actions" value="{{action.id}}">{{action.text}}</option>
+        </select>
+      </div>
     </div>
-  </div>
 
-  <div class="form-group row">
-    <label class="col-xs-4">Result:</label>
-    <textarea class="col-xs-8 height-500" [ngModel]="result" readonly></textarea>
-  </div>
-</div>
+    <div class="form-group row">
+      <label class="col-md-2 control-label">Encryption Key:</label>
+      <div class="col-md-10">
+        <input class="form-control" [(ngModel)]="key" type="password" placeholder="Encryption key (optional)" name="key"/>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-md-2 control-label">Term:<span class="required"> *</span></label>
+      <div class="col-md-10">
+        <textarea class="form-control" required [(ngModel)]="term" type="text" placeholder="Term to encrypt/decrypt (required)" name="term"></textarea>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="pull-right">
+        <div class="col-md-12">
+          <span class="btn-group">
+            <button type="button" class="btn btn-secondary" (click)="actionId = (actionId == 0 ? 1 : 0); setEncryptionChange();">Switch <i class="fa fa-unlock" [ngClass]="{'fa-lock': (actionId == 0), 'fa-unlock': (actionId == 1)}"></i></button>
+            <button type="submit" class="btn btn-primary" (click)="doIt();">{{buttonText}}</button>
+          </span>
+          <span>
+            <button type="button" class="btn btn-secondary" (click)="clearIt();">Clear</button>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-md-2 control-label">Result:</label>
+      <div class="col-md-10">
+        <textarea class="form-control" [ngModel]="result" readonly name="result"></textarea>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="pull-right">
+        <div class="col-md-12">
+          <button type="button" class="btn btn-primary" ngxClipboard [cbContent]="result">Copy</button>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+</form>

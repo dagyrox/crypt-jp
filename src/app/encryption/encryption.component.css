@@ -1,3 +1,16 @@
-.height-500{
-    height: 500px;
+textarea{
+    height: 150px;
+    resize: none;
+}
+
+.required{
+    color: #a94442;
+}
+
+/* https://angular.io/docs/ts/latest/guide/forms.html */
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red */
 }
